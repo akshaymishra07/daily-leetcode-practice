@@ -15,33 +15,26 @@
  */
 class Solution {
     
-    static int ans;
-    
-    static void getMinHeight(TreeNode root, int depth){
+    static int md(TreeNode root){
         
         if(root == null){
-            return;
+            return Integer.MAX_VALUE;
         }
+     
+        if(root.left == null && root.right == null){
+            return 1;
+        } 
         
-        if(root.left  == null && root.right == null){
-            ans = Math.min(ans,depth);
-        }
+        return 1 + Math.min(md(root.left), md(root.right));
         
-        getMinHeight(root.left, depth+1);
-        getMinHeight(root.right, depth+1);
     }
     
     public int minDepth(TreeNode root) {
-        
-        
-        
-        ans = Integer.MAX_VALUE;
         
         if(root == null){
             return 0;
         }
         
-        getMinHeight(root,1);
-        return ans;
+       return  md(root);
     }
 }

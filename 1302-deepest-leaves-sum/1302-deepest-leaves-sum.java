@@ -15,42 +15,38 @@
  */
 class Solution {
     
-   static int getMaxDepth(TreeNode root){
+    static int maximumSoFar = 1;
+    int sum = 0;
+    
+    void calculateSum(TreeNode root, int level){
         
         if(root == null){
-            return 0;
-        }
-       
-       return 1+ Math.max(getMaxDepth(root.left),getMaxDepth(root.right));
-    }
-    
-    static int ans = 0;
-    
-    static void deepestLeaves(TreeNode root, int depth, int maxDepth){
-        
-         if(root == null) return;
-        
-        if(depth == maxDepth){
-            ans += root.val;
             return;
         }
         
-        deepestLeaves(root.left,depth+1,maxDepth);
-        deepestLeaves(root.right,depth+1,maxDepth);
+         if(level > maximumSoFar){
+            maximumSoFar = level;
+            sum = 0;
+        }
+        
+        if(level == maximumSoFar){
+            sum += root.val;
+        }
+        
+        calculateSum(root.left, level+1); 
+        calculateSum(root.right, level+1);        
+
+        
         
     }
     
     public int deepestLeavesSum(TreeNode root) {
-         
-        ans = 0;
-        
-        int maxDepth = getMaxDepth(root);
-        
+        sum = 0;
+        maximumSoFar = 1;
         if(root == null) return 0;
+        calculateSum(root, 1);
+        return sum;
         
-        deepestLeaves(root, 1, maxDepth);
-        
-        return ans;
-        
+       
     }
 }

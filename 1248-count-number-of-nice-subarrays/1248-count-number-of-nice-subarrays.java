@@ -1,18 +1,32 @@
 class Solution {
-    
- 
-    
-    public int numberOfSubarrays(int[] nums, int k) {
-          
-         int cur = 0, ans = 0;
-        Map<Integer, Integer> map = new HashMap<>();
-        map.put(0, 1);
-        for (int i = 0; i < nums.length; i++) {
-            cur += nums[i] % 2 == 1 ? 1 : 0;
-            map.put(cur, map.getOrDefault(cur, 0) + 1);
-            ans += map.getOrDefault(cur - k, 0);
+    static int countSubarrays(int arr[], int k){
+        
+        int count = 0;
+        int left = 0;
+        int right = 0;
+        int ans = 0;
+        
+        while(right < arr.length){
+            
+            count += arr[right] % 2;
+            
+            while(left <= right && count > k){
+                
+                count = count - arr[left++]%2;
+                
+                
+            }
+            
+            ans += right - left + 1;
+            right++;
         }
+        
         return ans;
+        
+    }
+    public int numberOfSubarrays(int[] nums, int k) {
+        
+       return  countSubarrays(nums, k) - countSubarrays(nums, k-1);
         
     }
 }

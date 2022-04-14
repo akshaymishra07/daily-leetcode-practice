@@ -13,39 +13,40 @@
  *     }
  * }
  */
-class Solution {
+
+class HeightPerfectPair{
     
-    static int getHeight(TreeNode root, int ht){
-        
-        if(root.left  == null){
-            return ht;
-        }
-        
-        return getHeight(root.left,ht+1);
+    boolean isPerfect;
+    int height;
+    
+    HeightPerfectPair(boolean isPerfect, int height){
+        this.isPerfect = isPerfect;
+        this.height = height;
     }
     
+}
 
-    static boolean isNullNode(TreeNode root, int maxLc, int nodeNum){
+class Solution {
+    
+    static HeightPerfectPair isPerfect(TreeNode root){
         
-        int low = 1;
-        int high= maxLc;
+        TreeNode temp = root;
+        int lh = 0;
         
-        while(low < high){
-            
-            int mid = (low + high)/2;
-            
-            if(nodeNum <= mid){
-                root = root.left;
-                high = mid;
-            }else{
-                root = root.right;
-                low = mid+1;
-            }
-            
-            
+        while(temp != null){
+            lh++;
+            temp = temp.left;
         }
         
-        return root == null;
+        temp = root;
+        int rh = 0;
+        
+        while(temp != null){
+            rh++;
+            temp = temp.right;
+        }
+       
+        return new HeightPerfectPair(lh == rh, lh);
         
     }
     
@@ -55,41 +56,24 @@ class Solution {
             return 0;
         }
         
-        int height =  getHeight(root,1);
+        int count = 1;
         
-        int maxLeafCount = (int) Math.pow(2,height-1);
+        HeightPerfectPair pleft = isPerfect(root.left);
+        HeightPerfectPair pright = isPerfect(root.right);
+         
         
-        int low = 1;
-        int high = maxLeafCount;
-        int mid = 0;
-        int ans = 0;
-        
-        while(low <= high){
-            
-            mid = (low+high)/2;
-            
-            boolean res = isNullNode(root,maxLeafCount,mid);
-            
-            if(res){
-                high = mid - 1;
-            }else{
-                
-                if(mid == maxLeafCount){
-                    ans = mid;
-                    break;
-                }
-                
-                if(isNullNode(root,maxLeafCount,mid+1)){
-                   ans = mid;
-                    break;
-                    
-                }else{
-                    low = mid + 1;
-                }
-            }
-            
+        if(pleft.isPerfect){
+            count += Math.pow(2,pleft.height)-1;
+        }else{
+            count += countNodes(root.left);
         }
         
-        return ans + maxLeafCount - 1;
+        if(pright.isPerfect){
+            count += Math.pow(2,pright.height)-1;
+        }else{
+            count += countNodes(root.right);
+        }
+        
+        return count;
     }
 }

@@ -17,11 +17,7 @@ class Solution {
     
     static void traverse(TreeNode root, int[] count, int k, int[] ans){
         
-        
         if(root == null)return;
-        
-        
-        
         traverse(root.left, count, k , ans);
         
         if(count[0]++ == k){
@@ -39,6 +35,5 @@ class Solution {
        count[0] = 1; 
        traverse(root, count, k, ans);
        return ans[0]; 
-        
-    }
+     }
 }

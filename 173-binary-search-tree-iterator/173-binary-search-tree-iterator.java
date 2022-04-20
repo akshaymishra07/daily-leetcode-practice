@@ -20,7 +20,7 @@ class BSTIterator {
     public BSTIterator(TreeNode root) {
     
         list = new ArrayList<>();
-        i = 0;
+        i = -1;
         
         inorder(root, list);
         
@@ -41,7 +41,7 @@ class BSTIterator {
     public int next() {
         
         if(i < list.size()){
-            return list.get(i++);
+            return list.get(++i);
         }
         
         return -1;
@@ -49,7 +49,7 @@ class BSTIterator {
     
     public boolean hasNext() {
         
-        return !(i == list.size());
+        return !(i == list.size()-1);
     }
 }
 

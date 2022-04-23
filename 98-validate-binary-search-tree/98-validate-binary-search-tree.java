@@ -13,44 +13,32 @@
  *     }
  * }
  */
-class Triplet{
-    
-    boolean isBst;
-    long min;
-    long max;
-    
-    Triplet(boolean isBst, long min, long max){
-        
-        this.isBst = isBst;
-        this.min= min;
-        this.max = max;
-        
-    }
-}
 class Solution {
-    
-    static Triplet investigate(TreeNode root){
+    static void check(TreeNode root, long lb, long ub, boolean[] ans){
         
         if(root == null){
-            return new Triplet(true, Long.MAX_VALUE, Long.MIN_VALUE);
+            return;
         }
         
-        Triplet lst = investigate(root.left);
-        Triplet rst = investigate(root.right);
+        if(root.val <= lb || root.val >= ub){
+            ans[0] = false;
+            return;
+        } 
         
-        boolean isBst = lst.isBst && rst.isBst && (lst.max < root.val && root.val < rst.min);
-        long min = Math.min(root.val, Math.min(lst.min, rst.min));
-        long max = Math.max(root.val, Math.max(lst.max, rst.max));
+        check(root.left, lb, root.val, ans);
+        check(root.right, root.val, ub, ans);
         
-        return new Triplet(isBst,min,max);
     }
-    
     public boolean isValidBST(TreeNode root) {
         
-        if(root == null)return true;
+        if(root == null){
+            return true;
+        }
         
-        Triplet result = investigate(root);
+        boolean ans[] = new boolean[]{true};
         
-        return result.isBst;
+        check(root, Long.MIN_VALUE, Long.MAX_VALUE,ans);
+        
+        return ans[0];
     }
 }

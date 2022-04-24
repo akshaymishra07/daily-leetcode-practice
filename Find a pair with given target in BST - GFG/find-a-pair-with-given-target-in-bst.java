@@ -98,44 +98,68 @@ class GFG
 
 //User function Template for Java
 
+class Pair{
+    Node head;
+    Node tail;
+    
+    Pair(Node head, Node tail){
+        
+        this.head = head;
+        this.tail = tail;
+    }
+}
+
 class Solution
 {
-    
-    static void inorder(Node root, List<Integer> res){
+   Pair convertToDLL(Node root){
         
         if(root == null){
-            return;
+            return new Pair(null,null);
         }
         
-        inorder(root.left,res);
+        Pair lst = convertToDLL(root.left);
+        Pair rst  = convertToDLL(root.right);
         
-        res.add(root.data);
+        Node head = root;
+        Node tail = root;
         
-        inorder(root.right, res);
+        root.left = lst.tail;
         
+        if(lst.tail != null){
+            lst.tail.right = root;
+            head = lst.head;
+        }
+        
+        root.right = rst.head;
+        
+        if(rst.head != null){
+            rst.head.left = root;
+            tail = rst.tail;
+        }
+        
+        return new Pair(head, tail);
     }
-    
     
     // root : the root Node of the given BST
     // target : the target sum
     public int isPairPresent(Node root, int target)
     {
-        List<Integer> inorder = new ArrayList<Integer>();
+        Pair res = convertToDLL(root);
         
-        inorder(root, inorder);
+        Node p1 = res.head;
+        Node p2 = res.tail;
         
-        int p1 = 0;
-        int p2 = inorder.size()-1;
-        
-        while(p1 < p2){
-            int sum = inorder.get(p1) + inorder.get(p2);
+        while(p1.data < p2.data){
+            
+            int sum = p1.data + p2.data;
+            
             if(sum == target){
                 return 1;
             }else if(sum > target){
-                p2--;
-            }else{
-                p1++;
-            }
+                p2 = p2.left;
+            }else
+                p1 = p1.right;
+            
         }
         
         return 0;

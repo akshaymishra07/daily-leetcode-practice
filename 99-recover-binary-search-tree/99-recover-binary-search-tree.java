@@ -15,36 +15,55 @@
  */
 class Solution {
     
-    static TreeNode prev;
-    static TreeNode one;
-    static TreeNode two;   
-    
-    
-    static void traverse(TreeNode root){
-        if(root == null)return;
+    static void traverse(TreeNode root, List<TreeNode> inorder){
         
-        traverse(root.left);
-        
-        if(prev != null && prev.val > root.val){
-            
-            if(one == null) one = prev;
-            
-            two = root;
+        if(root == null){
+            return;
         }
         
-        prev = root;
-        traverse(root.right);
+        traverse(root.left, inorder);
+        
+        inorder.add(root);
+        
+        traverse(root.right, inorder);
+        
     }
     
     public void recoverTree(TreeNode root) {
-        prev = null;
-        one = null;
-        two = null;
         
-        traverse(root);
+        List<TreeNode> inorder = new ArrayList<>();
         
-        int temp = one.val;
-        one.val = two.val;
-        two.val = temp;
+        traverse(root,inorder);
+        
+        int count = 0;
+        TreeNode n1 = null, n2 = null, n3 = null;
+        
+        for(int i = 0; i < inorder.size()-1; i++){
+            
+            if(inorder.get(i).val > inorder.get(i+1).val){
+                count++;
+                if(count == 1){
+                    n1 = inorder.get(i);
+                    n2 = inorder.get(i+1);
+                }else if(count == 2){
+                    n3 = inorder.get(i+1);
+                }
+          }
+        }
+         
+        
+         
+          if(count == 1){
+        
+              int temp = n1.val;
+              n1.val = n2.val;
+              n2.val = temp;
+          }else{
+              
+              int temp = n1.val;
+              n1.val = n3.val;
+              n3.val = temp;
+          }  
+            
+        }
     }
-}

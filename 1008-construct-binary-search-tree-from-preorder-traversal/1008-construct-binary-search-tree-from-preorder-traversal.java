@@ -13,35 +13,25 @@
  *     }
  * }
  */
-class Solution {    
-    static int i;
-    static TreeNode make(int[] pre, int key, long min, long max){
+class Solution {
+    
+    static int i = 0;
+    
+    static TreeNode make(int[] pre, long ub){
         
-        if(i > pre.length-1){
+        if(i == pre.length || pre[i] > ub){
             return null;
         }
         
-        TreeNode root = null;
-        
-        if(key > min && key < max){
-            
-            root = new TreeNode(key);
-            if(i+1 == pre.length){
-                return root;
-            }
-            i++;
-            
-            root.left = make(pre,pre[i],min,key);
-            root.right = make(pre,pre[i],key, max);
-        }
+        TreeNode root = new TreeNode(pre[i++]);
+        root.left = make(pre,root.val);
+        root.right = make(pre,ub);
         
         return root;
     }
     
     public TreeNode bstFromPreorder(int[] preorder) {
         i = 0;
-        
-        return make(preorder, preorder[i], Long.MIN_VALUE, Long.MAX_VALUE);
-        
+        return make(preorder, Long.MAX_VALUE);
     }
 }

@@ -13,53 +13,35 @@
  *     }
  * }
  */
-class Solution {
-    
-    static int[] nextGreaterElement(int[] arr){
-        int n = arr.length;
-        int[] nge = new int[n];
+class Solution {    
+    static int i;
+    static TreeNode make(int[] pre, int key, long min, long max){
         
-        Stack<Integer> st = new Stack<>();
+        if(i > pre.length-1){
+            return null;
+        }
         
-        for(int i = 0; i < n; i++){
+        TreeNode root = null;
+        
+        if(key > min && key < max){
             
-            while(!st.isEmpty() && arr[i] > arr[st.peek()]){
-                nge[st.pop()] = i;
+            root = new TreeNode(key);
+            if(i+1 == pre.length){
+                return root;
             }
+            i++;
             
-            st.push(i);
+            root.left = make(pre,pre[i],min,key);
+            root.right = make(pre,pre[i],key, max);
         }
         
-        while(!st.isEmpty()){
-            nge[st.pop()] = n;
-        }
-        
-        return nge;
+        return root;
     }
     
     public TreeNode bstFromPreorder(int[] preorder) {
+        i = 0;
         
-        if(preorder.length == 0){
-            return null;
-        }
-        int[] nge = nextGreaterElement(preorder);
+        return make(preorder, preorder[i], Long.MIN_VALUE, Long.MAX_VALUE);
         
-        
-        
-        return make(preorder,0,preorder.length-1,nge);
-    }
-    
-    static TreeNode make(int[] pre, int i, int j, int[] nge){
-        
-        if(i > j){
-            return null;
-        }
-        
-        TreeNode root = new TreeNode(pre[i]);
-        
-        root.left = make(pre,i+1,nge[i]-1,nge);
-        root.right = make(pre,nge[i],j,nge);
-        
-        return root;
     }
 }

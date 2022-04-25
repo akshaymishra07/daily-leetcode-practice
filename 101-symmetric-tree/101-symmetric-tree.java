@@ -14,23 +14,21 @@
  * }
  */
 class Solution {
-    
-    static boolean mirrorImages(TreeNode r1 , TreeNode r2){
+    static boolean isMirrorImage(TreeNode root1 , TreeNode root2){
         
-        if(r1 == null && r2 == null){
-            return  true;
+        if(root1 == null && root2 == null){
+            return true;
         }
-
-        if(r1 == null || r2 == null){
-            return  false;
+        
+        if(root1 == null || root2 == null){
+            return false;
         }
-
-        return (r1.val == r2.val) && mirrorImages(r1.left,r2.right) && mirrorImages(r1.right, r2.left); 
+        
+        return root1.val == root2.val && isMirrorImage(root1.left, root2.right) && isMirrorImage(root1.right, root2.left);    
     }
     
     public boolean isSymmetric(TreeNode root) {
         
-        return mirrorImages(root.left, root.right);
-        
+        return isMirrorImage(root.left, root.right);
     }
 }

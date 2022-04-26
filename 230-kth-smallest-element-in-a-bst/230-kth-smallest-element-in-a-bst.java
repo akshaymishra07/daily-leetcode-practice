@@ -14,26 +14,29 @@
  * }
  */
 class Solution {
-    
-    static void traverse(TreeNode root, int[] count, int k, int[] ans){
-        
-        if(root == null)return;
-        traverse(root.left, count, k , ans);
-        
-        if(count[0]++ == k){
-            ans[0] = root.val;
+
+     static TreeNode curr = null;
+    static int count = 0;
+    static void traverse(TreeNode root, int k){
+        if(root == null){
             return;
         }
-        traverse(root.right, count, k, ans);
+
+        traverse(root.left , k);
+
         
-    }
+        count++;
+        if(count == k) curr = root ;
+
+        traverse(root.right, k); 
+
+    } 
     
     public int kthSmallest(TreeNode root, int k) {
-       
-       int ans[] = new int[1]; 
-       int count[] = new int[1];
-       count[0] = 1; 
-       traverse(root, count, k, ans);
-       return ans[0]; 
-     }
+        curr = null;
+       count = 0;
+       traverse(root, k);
+
+       return curr.val;
+    }
 }

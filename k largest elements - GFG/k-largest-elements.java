@@ -33,17 +33,30 @@ class Solution {
     int[] kLargest(int[] arr, int n, int k) {
         
         
-        PriorityQueue<Integer> maxheap = new PriorityQueue<>(Collections.reverseOrder());
+        PriorityQueue<Integer> minheap = new PriorityQueue<>();
         
-        for(int num : arr){
-            maxheap.add(num);
+        int p = 0;
+        for(; p < k; p++){
+            
+            minheap.add(arr[p]);
         }
         
+        while(p < arr.length){
+            
+            if(arr[p] > minheap.peek()){
+                minheap.poll();
+                minheap.add(arr[p]);
+            }
+            
+            p++;
+        }
+        
+        
         int ans[] = new int[k];
-        int i = 0;
+        int i = ans.length-1;
         while(k-- > 0){
             
-            ans[i++] = maxheap.poll();
+            ans[i--] = minheap.poll();
         }
         
         return ans;

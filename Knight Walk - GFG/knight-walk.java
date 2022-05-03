@@ -42,19 +42,7 @@ class Pair{
 
 class Solution
 {
-    static void createMoves(List<int[]> moves){
-        
-        moves.add(new int[]{2,1});
-        moves.add(new int[]{2,-1});
-        moves.add(new int[]{-2,1});
-        moves.add(new int[]{-2,-1});
-        moves.add(new int[]{1,2});
-        moves.add(new int[]{-1,2});
-        moves.add(new int[]{1,-2});
-        moves.add(new int[]{-1,-2});
-        
-    }
-    
+   
     static boolean isValid(int x, int y, int N){
              
         return x > 0 && x <= N && y > 0 && y <= N;
@@ -66,8 +54,8 @@ class Solution
         Queue<Pair> q = new LinkedList<>();
         boolean[][] visited = new boolean[N+1][N+1];
         
-        List<int[]> moves = new ArrayList<>();
-        createMoves(moves);
+        int[] xmoves = new int[]{2,2,-2,-2,1,-1,1,-1};
+        int[] ymoves = new int[]{1,-1,1,-1,2,2,-2,-2};
         
         q.add(new Pair(KnightPos[0], KnightPos[1]));
         visited[KnightPos[0]][KnightPos[1]] = true;
@@ -85,9 +73,9 @@ class Solution
                     return level;
                 }
                 
-                for(int move[] : moves){
-                   int x = curr.key + move[0];
-                   int y = curr.value + move[1]; 
+                for(int i = 0; i < xmoves.length; i++){
+                   int x = curr.key + xmoves[i];
+                   int y = curr.value + ymoves[i]; 
                    
                    if(!isValid(x,y,N))continue;
                    

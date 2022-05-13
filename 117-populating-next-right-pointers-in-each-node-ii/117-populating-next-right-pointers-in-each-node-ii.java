@@ -48,7 +48,7 @@ class Solution {
                    temp.next = q.peek();
                } 
                 
-            n--;
+               n--;
             }
             
             

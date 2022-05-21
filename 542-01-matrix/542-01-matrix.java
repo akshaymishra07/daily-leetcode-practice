@@ -43,9 +43,9 @@ class Solution {
          
         while(!q.isEmpty()){
             
-            int nums = q.size();
           
-            while(nums-- > 0){
+          
+            
                 
                 Pair curr = q.poll();
                 
@@ -66,7 +66,7 @@ class Solution {
                        q.add(new Pair(x,y));
 
                  }
-                }
+                
             }
             //dist++;
         }  

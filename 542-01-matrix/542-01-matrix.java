@@ -39,7 +39,7 @@ class Solution {
             }
         }
         
-        int dist = 0;
+        //t dist = 0;
          
         while(!q.isEmpty()){
             
@@ -62,13 +62,13 @@ class Solution {
                             
                         
                        visited[x][y] = true;
-                       mat[x][y] = dist + 1;
+                       mat[x][y] = mat[curr.x][curr.y]+1;
                        q.add(new Pair(x,y));
 
                  }
                 }
             }
-            dist++;
+            //dist++;
         }  
         
         return mat;

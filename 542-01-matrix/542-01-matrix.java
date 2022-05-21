@@ -64,11 +64,9 @@ class Solution {
                        visited[x][y] = true;
                        mat[x][y] = dist + 1;
                        q.add(new Pair(x,y));
- 
-                        
-                    }
-                    
-               }
+
+                 }
+                }
             }
             dist++;
         }  

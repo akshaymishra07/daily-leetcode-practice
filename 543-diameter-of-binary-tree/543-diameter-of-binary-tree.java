@@ -24,7 +24,7 @@ class Solution {
         int lh = getHeight(root.left, ans);
         int rh = getHeight(root.right, ans);
         
-        ans[0] = Math.max(ans[0], 1+lh+rh);
+        ans[0] = Math.max(ans[0], lh+rh);
         
         return 1 + Math.max(lh,rh);
     } 
@@ -38,7 +38,7 @@ class Solution {
         
         getHeight(root, ans);
         
-        return ans[0]-1;
+        return ans[0];
        
     }
 }

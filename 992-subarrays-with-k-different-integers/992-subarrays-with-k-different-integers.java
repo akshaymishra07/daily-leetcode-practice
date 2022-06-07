@@ -1,40 +1,34 @@
 class Solution {
     
-    //this method will return the number of subarrays that have 
-    //at most k distinct integers.
-    static int countSubarrays(int nums[] , int k){
-     
-       
+    //function that takes a number k and return number of subarrays
+    //that have at most k distinct integers
+    
+    public static int atMostKDistinct(int arr[], int k){
+        
+        int ans = 0;
+        int s = 0;
         Map<Integer, Integer> map = new HashMap<>();
         
-        int start = 0;
-        int end = 0;
-        int count = 0; 
-        
-        while(end < nums.length){
-           int num = nums[end];  
-           map.put(num , map.getOrDefault(num , 0)+1);
+        for(int e = 0; e < arr.length; e++){
             
+            map.put(arr[e], map.getOrDefault(arr[e], 0)+1);
             
-           while(map.size() > k){
-               
-               map.put(nums[start], map.get(nums[start])-1);
-               
-               if(map.get(nums[start]) == 0){
-                   map.remove(nums[start]);
-               }
-               
-               start++;
-           }
-           
-           count += end - start + 1; 
-           end++; 
+            while(map.size() > k){
+                map.put(arr[s], map.get(arr[s])-1);
+                if(map. get(arr[s]) == 0){
+                    map.remove(arr[s]);
+                }    
+                
+                s++;
+            }
+                    
+            ans += e-s+1;
         }
-      
-        return count;
+        
+        return ans;
     }
     
     public int subarraysWithKDistinct(int[] nums, int k) {
-        return countSubarrays(nums, k) - countSubarrays(nums,k-1);
+        return atMostKDistinct(nums, k) - atMostKDistinct(nums, k-1);
     }
 }

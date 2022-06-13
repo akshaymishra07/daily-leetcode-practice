@@ -5,20 +5,14 @@ class Solution {
         int start = 0;
         HashSet<Character> set = new HashSet<>();
         
-        for(int end = 0; end < s.length();){
+        for(int end = 0; end < s.length();end++){
             
-            if(!set.contains(s.charAt(end))){
-                
-                ans = Math.max(ans, end-start+1);
-                set.add(s.charAt(end));
-                end++;
-                
-            }else{
-                
+            while(set.contains(s.charAt(end))){
                 set.remove(s.charAt(start++));
-                
             }
-            
+        
+            set.add(s.charAt(end));
+            ans = Math.max(ans, end-start+1);      
             
         }
         

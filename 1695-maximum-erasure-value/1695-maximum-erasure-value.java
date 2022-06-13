@@ -3,20 +3,19 @@ class Solution {
         
         int ans = 0;
         int sum = 0;
-        Map<Integer, Integer> map = new HashMap<>();
+        Set<Integer> set = new HashSet<>();
         int start = 0;
         
         for(int end = 0; end < nums.length; end++){
             
-            sum += nums[end];
-            
-            while(map.containsKey(nums[end])){
+            while(set.contains(nums[end])){
                 sum = sum - nums[start];
-                map.remove(nums[start++]);
+                set.remove(nums[start++]);
                 
             }
             
-            map.put(nums[end], 1);
+            set.add(nums[end]);
+            sum += nums[end];
             ans = Math.max(sum, ans);    
         }
         

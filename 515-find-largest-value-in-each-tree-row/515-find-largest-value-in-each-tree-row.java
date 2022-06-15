@@ -15,40 +15,41 @@
  */
 class Solution {
     public List<Integer> largestValues(TreeNode root) {
-        
+        List<Integer> result = new ArrayList<>();
         
         if(root == null){
-            return new ArrayList<>();
+            return result;
         }
         
-        List<Integer> res = new ArrayList<>();
         Queue<TreeNode> q = new LinkedList<>();
-        
         q.add(root);
+        
         
         while(!q.isEmpty()){
             
             int n = q.size();
-            int max = Integer.MIN_VALUE;
+            long max = Long.MIN_VALUE;
+            
             while(n-- > 0){
+              
+               TreeNode curr = q.poll();
                 
-               TreeNode temp = q.poll();
+                max = Math.max(curr.val, max);
                 
-               if(temp.left != null){
-                   q.add(temp.left);
-               } 
+                if(curr.left != null){
+                    q.add(curr.left);
+                }
                 
-               if(temp.right != null){
-                   q.add(temp.right);
-               } 
-                
-               max = Math.max(max,temp.val); 
+                if(curr.right != null){
+                    q.add(curr.right);
+                }
+                  
                 
             }
             
-            res.add(max);
+              result.add((int) max);
         }
-        
-        return res;
+     
+        return result;
     }
 }

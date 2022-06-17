@@ -14,35 +14,31 @@
  * }
  */
 class Solution {
-    static int count = 0;
+    static int goodNodes;
     
-    static void traverse(TreeNode root, long maxSoFar){
-        
-        if(root == null){
-            return;
-        }
-        
-        if(root.val >= maxSoFar){
-            count++;
-        }
-        
-        maxSoFar = Math.max(root.val, maxSoFar);
-        
-        traverse(root.left , maxSoFar);
-        traverse(root.right, maxSoFar);
-        
-        
-        
-    }
+     void traverse(TreeNode root, int maxSoFar){
+         
+         if(root == null){
+             return;
+         }
+         
+         if(root.val >= maxSoFar){
+             goodNodes++;
+         }
+         
+         maxSoFar = Math.max(maxSoFar, root.val);
+         
+         traverse(root.left, maxSoFar);
+         traverse(root.right, maxSoFar);
+         
+     }
     
     
     public int goodNodes(TreeNode root) {
+        goodNodes = 0;
         
-        count = 0;
+        traverse(root, Integer.MIN_VALUE);
         
-        traverse(root, Long.MIN_VALUE);
-        
-        return count;
-        
+        return goodNodes;
     }
 }

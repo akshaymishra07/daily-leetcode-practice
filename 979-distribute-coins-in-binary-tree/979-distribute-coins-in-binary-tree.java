@@ -14,12 +14,13 @@
  * }
  */
 class Solution {
-    int ans = 0;
     
-    public int dfs(TreeNode root){
+   static int ans;
+    
+    int dfs(TreeNode root){
         
         if(root == null){
-            return 0;
+            return 0;       
         }
         
         int l = dfs(root.left);
@@ -28,7 +29,7 @@ class Solution {
         ans += Math.abs(l) + Math.abs(r);
         
         return root.val + l + r - 1;
-        
+         
     }
     
     public int distributeCoins(TreeNode root) {

@@ -14,36 +14,42 @@
  * }
  */
 class Solution {
-    static int maxLevelSoFar = -1;
-    
-    static void traverse(TreeNode root, int level, List<Integer> result){
-        
-        if(root == null){
-            return;
-        }
-        
-        if(level > maxLevelSoFar){
-            
-            result.add(root.val);
-            maxLevelSoFar = level;
-            
-        }
-        
-        traverse(root.right, level+1, result);
-        traverse(root.left, level+1, result);
-        
-    }
-    
-    
     public List<Integer> rightSideView(TreeNode root) {
-          
-        maxLevelSoFar = -1;
-        List<Integer> result = new ArrayList<>();
+     
         
-        if(root == null)return result;
+        Queue<TreeNode> q = new LinkedList<>();
+        List<Integer> li = new ArrayList<>();
         
-        traverse(root,0,result);
+        if(root == null) return li;
         
-        return result;
+        q.add(root);
+        
+        while(!q.isEmpty()){
+            
+            int n = q.size();
+            
+            while(n-- > 0){
+                
+                TreeNode curr = q.poll();
+                
+                if(n+1 == 1){
+                    li.add(curr.val);
+                }
+                
+                if(curr.left != null){
+                    
+                    q.add(curr.left);
+                }
+                
+                if(curr.right != null){
+                    
+                    q.add(curr.right);
+                }
+                
+            }
+            
+        }
+        
+        return li;
     }
 }

@@ -14,51 +14,37 @@
  * }
  */
 class Solution {
-   
-    static void traverse(TreeNode root, List<Integer> temp, int currentSum, int sum,  List<List<Integer>> result){
+    
+    public void solve(TreeNode root, List<Integer> temp, int sum, List<List<Integer>> res){
         
         if(root == null){
             return;
         }
         
         temp.add(root.val);
-        currentSum += root.val;
         
-        if(root.left == null && root.right == null){
-          
-            if(currentSum == sum){
-                
-                List<Integer> li = new ArrayList<>();
-                
-                for(int num : temp){
-                    li.add(num);
-                }
-                
-                result.add(li);
+        if(root.left == null && root.right == null && root.val == sum){
+            List<Integer> li = new ArrayList<>();
+            
+            for(int num : temp){
+                li.add(num);
             }
             
+            res.add(li);
         }
         
-        traverse(root.left, temp, currentSum, sum, result);
-        traverse(root.right, temp, currentSum, sum, result);
-     
-        currentSum -= temp.get(temp.size()-1);
+        solve(root.left, temp, sum - root.val, res);
+        solve(root.right, temp, sum - root.val, res);
+        
         temp.remove(temp.size()-1);
         
-    
     }
     
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        
-        List<List<Integer>> result = new ArrayList<>();
+        List<List<Integer>> res = new ArrayList<>();
         List<Integer> temp = new ArrayList<>();
+        solve(root, temp, targetSum, res);
         
-        if(root == null){
-            return result;
-        }
-        
-        traverse(root,temp,0,targetSum, result);
-        
-        return result;
+        return res;
     }
 }

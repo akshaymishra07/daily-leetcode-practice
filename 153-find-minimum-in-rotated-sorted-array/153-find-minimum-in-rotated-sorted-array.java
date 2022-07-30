@@ -14,6 +14,7 @@ class Solution {
                 
                 if(nums[mid] > nums[mid+1]){
                     pivot = mid;
+                    break;
                 }
                 low = mid + 1;
             }

@@ -35,7 +35,7 @@ class Solution {
     
     public TreeNode sortedArrayToBST(int[] nums) {
         
-       TreeNode root1 =   create(0,nums.length-1, nums);
-        return root1;
+       TreeNode root =   create(0,nums.length-1, nums);
+        return root;
     }
 }

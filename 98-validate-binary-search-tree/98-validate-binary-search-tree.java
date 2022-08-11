@@ -14,31 +14,23 @@
  * }
  */
 class Solution {
-    static void check(TreeNode root, long lb, long ub, boolean[] ans){
-        
-        if(root == null){
-            return;
-        }
-        
-        if(root.val <= lb || root.val >= ub){
-            ans[0] = false;
-            return;
-        } 
-        
-        check(root.left, lb, root.val, ans);
-        check(root.right, root.val, ub, ans);
-        
-    }
     public boolean isValidBST(TreeNode root) {
-        
-        if(root == null){
-            return true;
-        }
-        
-        boolean ans[] = new boolean[]{true};
-        
-        check(root, Long.MIN_VALUE, Long.MAX_VALUE,ans);
-        
-        return ans[0];
+         Stack<TreeNode> stack = new Stack<TreeNode> ();
+		   TreeNode cur = root ;
+		   TreeNode pre = null ;		   
+		   while (!stack.isEmpty() || cur != null) {			   
+			   if (cur != null) {
+				   stack.push(cur);
+				   cur = cur.left ;
+			   } else {				   
+				   TreeNode p = stack.pop() ;
+				   if (pre != null && p.val <= pre.val) {					   
+					   return false ;
+				   }				   
+				   pre = p ;					   
+				   cur = p.right ;
+			   }
+		   }
+		   return true ;  
     }
 }

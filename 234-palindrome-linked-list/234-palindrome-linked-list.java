@@ -14,22 +14,30 @@ class Solution {
         
         Stack<Integer> st = new Stack<>();
         
-        ListNode temp = head;
+        ListNode temp1 = head;
+        ListNode temp2 = head;
         
-        while(temp!=null){
+        
+        while(temp2!=null && temp2.next != null){
             
-            st.push(temp.val);
+            st.push(temp1.val);
             
-            temp = temp.next;
+            temp1 = temp1.next;
+            temp2 = temp2.next.next;
+        }
+        
+        
+        if(temp2 != null){
+            temp1 = temp1.next;
         }
         
         while(!st.isEmpty()){
             
-            if(st.pop() != head.val){
+            if(st.pop() != temp1.val){
                 return false;
             }
             
-            head = head.next;
+            temp1 = temp1.next;
         }
         
         return true;

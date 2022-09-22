@@ -15,31 +15,29 @@
  */
 class Solution {
     
-    static int maxLevel = -1;
+    static int maxLevel = -1; 
     
-    void solve(TreeNode root, int level, List<Integer> li){
+    public void traverse(TreeNode root, int level, List<Integer> ans){
         
-        if(root == null){
+        if(root == null) {
             return;
         }
         
         if(level > maxLevel){
-            li.add(root.val);
             maxLevel = level;
+            ans.add(root.val);
         }
         
-        solve(root.right, level+1, li);
-        solve(root.left, level+1, li);
-        
+        traverse(root.right, level+1, ans);
+        traverse(root.left, level+1, ans);
     }
     
     public List<Integer> rightSideView(TreeNode root) {
+        
         maxLevel = -1;
+        List<Integer> ans = new ArrayList<>();
+        traverse(root, 0, ans);
         
-        List<Integer> li = new ArrayList<>();
-        
-        solve(root, 0,  li);
-        
-        return li;
+        return ans;
     }
 }

@@ -8,7 +8,7 @@ class Solution {
          if(!map.containsKey(ch)){
              List<Integer> temp = new ArrayList<>(2);
              temp.add(i);
-             temp.add(-1);
+             temp.add(i);
              map.put(ch, temp);
          }else{
              List<Integer> temp = map.get(ch);
@@ -19,15 +19,10 @@ class Solution {
      List<Integer> ans = new ArrayList<>(); 
         
      for(int i = 0; i < s.length(); i++){
-         char ch = s.charAt(i);
-           
-         if(map.get(ch).get(1) == -1){
-             ans.add(1);
-             continue;         
-         }
+         
          int end = i;   
          for(int j = i; j <= end; j++){
-            ch = s.charAt(j); 
+            char ch = s.charAt(j); 
             end = Math.max(end, map.get(ch).get(1)); 
          }
          
